@@ -1,0 +1,10 @@
+---
+user: "user"
+repo_dir: "/home/{{ user }}/Scaricati/"
+
+simple_discord_music_bot: simple-discord-music-bot
+
+node_repos:
+- "{{ simple_discord_music_bot }}"
+
+git_url: "https://github.com/BiRabittoh/"

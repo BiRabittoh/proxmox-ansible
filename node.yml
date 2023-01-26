@@ -1,0 +1,6 @@
+---
+- hosts: corrado
+  become: yes
+
+  roles:
+    - { role: node_stuff, user: "{{ username }}" }

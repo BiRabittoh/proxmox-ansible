@@ -1,0 +1,17 @@
+[Unit]
+Description=A Python project.
+After=syslog.target network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+WorkingDirectory={{ repo_dir }}{{ item }}
+ExecStart={{ repo_dir }}{{ item }}/venv/bin/python {{ repo_dir }}{{ item }}/main.py
+User={{ user }}
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier= {{ item }}
+
+[Install]
+WantedBy=multi-user.target

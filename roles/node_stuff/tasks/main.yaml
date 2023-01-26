@@ -1,0 +1,37 @@
+- name: Install essential packages
+  package:
+    name: "{{ packages + node_packages }}"
+    state: latest
+
+- name: Git pull on node repositories
+  become: false
+  git:
+    repo: "{{ git_url }}{{ item }}"
+    dest: "{{ repo_dir }}{{ item }}"
+    update: yes
+    version: sp
+  loop: "{{ node_repos }}"
+
+- name: Create simple-discord-music-bot config.js
+  become: false
+  template:
+    src: templates/config.json.j2
+    dest: "{{ repo_dir }}{{ simple_discord_music_bot }}/config.json"
+
+- name: Install packages based on package.json.
+  community.general.npm:
+    path: "{{ repo_dir }}{{ item }}"
+  loop: "{{ node_repos }}"
+
+- name: Create node systemd service files
+  template:
+    src: templates/node.service.j2
+    dest: "/etc/systemd/system/{{ item }}.service"
+  loop: "{{ node_repos }}"
+
+- name: Enable and start node services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop: "{{ node_repos }}"

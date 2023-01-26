@@ -1,0 +1,6 @@
+---
+- hosts: grazia
+  become: yes
+
+  roles:
+    - { role: python_stuff, user: "{{ username }}" }

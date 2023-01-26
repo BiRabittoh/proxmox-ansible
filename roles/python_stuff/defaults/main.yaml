@@ -1,0 +1,12 @@
+---
+user: "user"
+repo_dir: "/home/{{ user }}/Scaricati/"
+
+groupgardenbot: groupgardenbot
+python_meme_bot: python-meme-bot
+
+python_repos:
+  - "{{ groupgardenbot }}"
+  - "{{ python_meme_bot }}"
+
+git_url: "https://github.com/BiRabittoh/"

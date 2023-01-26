@@ -1,0 +1,42 @@
+- name: Update packages
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+
+- name: Install essential packages
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Create the `aur_builder` user
+  become: yes
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: yes
+    group: wheel
+
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    validate: 'visudo -cf %s'
+
+- name: Remove devel.json file
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.cache/paru/devel.json"
+    state: absent
+
+- name: Upgrade the system using paru, only act on AUR packages.
+  become: no
+  kewlfft.aur.aur:
+    upgrade: yes
+    aur_only: yes
+
+- name: Enable passwordless sudo for {{ username }}
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^%wheel"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"

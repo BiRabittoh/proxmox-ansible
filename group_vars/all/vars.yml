@@ -1,0 +1,8 @@
+packages:
+  - neovim
+  - btop
+  - firefox
+  - tmux
+  - git
+
+username: "{{ ansible_user }}"
