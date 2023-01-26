@@ -1,5 +1,5 @@
 ---
-- hosts: fasco
+- hosts: all
   become: yes
   
   tasks:
