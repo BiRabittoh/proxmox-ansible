@@ -1,2 +1,5 @@
+roles:
+  - name: realorangeone.reflector
+
 collections:
   - name: kewlfft.aur

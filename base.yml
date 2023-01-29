@@ -1,7 +1,10 @@
 ---
-- hosts: all
+- hosts: fasco
   become: yes
-  
+
+  roles:
+    - realorangeone.reflector
+
   tasks:
     - import_tasks: tasks/essential.yml
   
