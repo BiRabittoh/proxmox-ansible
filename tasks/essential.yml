@@ -1,3 +1,9 @@
+- name: Remove pacman db.lck
+  become: yes
+  ansible.builtin.file:
+    path: "/var/lib/pacman/db.lck"
+    state: absent
+
 - name: Update packages
   community.general.pacman:
     update_cache: true
