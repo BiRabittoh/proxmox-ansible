@@ -4,8 +4,10 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-Restart=always
-RestartSec=1
+Restart=on-failure
+StartLimitBurst=2
+# Restart, but not more than once every x seconds: 30=30s, 600=10m
+StartLimitInterval=30
 WorkingDirectory={{ repo_dir }}{{ item }}
 ExecStart=/usr/bin/npm start
 User={{ user }}
