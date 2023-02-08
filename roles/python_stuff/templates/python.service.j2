@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-Restart=on-failure
+Restart=always
 StartLimitBurst=2
 # Restart, but not more than once every x seconds: 30=30s, 600=10m
 StartLimitInterval=30
