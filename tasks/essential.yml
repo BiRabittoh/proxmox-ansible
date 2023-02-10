@@ -46,3 +46,21 @@
     regexp: "^%wheel"
     line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
+
+- name: "Ensure bootable"
+  ansible.builtin.include_role:
+    name: aisbergg.mkinitcpio
+  vars:
+    mkinitcpio_config:
+      HOOKS:
+        - base
+        - udev
+        - autodetect
+        - keyboard
+        - keymap
+        - modconf
+        - block
+        - filesystems
+        - fsck
+    mkinitcpio_force_create: false
+    mkinitcpio_disable_fallback_preset: true
