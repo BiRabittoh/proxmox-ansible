@@ -64,3 +64,16 @@
         - fsck
     mkinitcpio_force_create: false
     mkinitcpio_disable_fallback_preset: true
+
+- name: Check to see if grub has been configured
+  stat: path=/boot/grub/grub.cfg
+  register: grub_config
+
+- name: Write grub configuration file
+  command: grub-mkconfig -o /boot/grub/grub.cfg
+  when: grub_config.stat.exists == False
+
+- name: Write grub to MBR
+  command: grub-install /dev/vda1
+  when: grub_config.stat.exists == False
+        

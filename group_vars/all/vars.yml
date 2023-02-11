@@ -4,5 +4,6 @@ packages:
   - firefox
   - tmux
   - git
+  - linux-lts
 
 username: "{{ ansible_user }}"
