@@ -9,7 +9,7 @@
     repo: "{{ git_url }}{{ item }}"
     dest: "{{ repo_dir }}{{ item }}"
     update: yes
-    version: sp
+    version: master
   loop: "{{ node_repos }}"
 
 - name: Create simple-discord-music-bot config.js
