@@ -1,0 +1,36 @@
+# Your Discord bot token (Found at https://discord.com/developers/applications)
+botToken: "{{ melody_bot_token }}"
+
+# Your Discord bot client ID
+clientId: "{{ melody_client_id }}"
+
+# Your Genius API client access token (Found at https://genius.com/developers)
+geniusApiKey: "{{ melody_genius_access_token }}"
+
+# The colour to use for embeds sent by the bot
+embedColour: "#2F3136"
+
+# Whether analytics should be sent when starting the bot
+# See https://github.com/NerdyTechy/Melody/wiki/Analytics
+enableAnalytics: false
+
+# Settings to control the bot's player and controller
+player:
+    # Leave VC when a song ends
+    leaveUponSongEnd: true
+    # Leave VC when a song is stopped
+    leaveUponSongStop: true
+    # Leave VC after X ms of inactivity
+    leaveOnEmptyDelay: 300000 # 5 minutes
+    # Deafen bot while playing
+    deafenBot: false
+
+# The emojis to be used in buttons for certain embeds
+# See https://github.com/NerdyTechy/Melody/wiki/Using-Custom-Emojis
+emojis:
+    stop: "⏹"
+    skip: "⏭"
+    queue: "📜"
+    pause: "⏯"
+    lyrics: "📜"
+    back: "⏮"

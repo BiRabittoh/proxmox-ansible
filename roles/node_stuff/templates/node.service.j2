@@ -8,12 +8,12 @@ Restart=on-failure
 StartLimitBurst=2
 # Restart, but not more than once every x seconds: 30=30s, 600=10m
 StartLimitInterval=30
-WorkingDirectory={{ repo_dir }}{{ item }}
+WorkingDirectory={{ repo_dir }}{{ melody }}
 ExecStart=/usr/bin/npm start
 User={{ user }}
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier= {{ item }}
+SyslogIdentifier= {{ melody }}
 
 [Install]
 WantedBy=multi-user.target

@@ -3,35 +3,31 @@
     name: "{{ packages + node_packages }}"
     state: latest
 
-- name: Git pull on node repositories
+- name: Git pull on Melody's repository
   become: false
   git:
-    repo: "{{ git_url }}{{ item }}"
-    dest: "{{ repo_dir }}{{ item }}"
+    repo: "https://github.com/NerdyTechy/{{ melody }}"
+    dest: "{{ repo_dir }}{{ melody }}"
     update: yes
     version: master
-  loop: "{{ node_repos }}"
 
-- name: Create simple-discord-music-bot config.js
+- name: Create melody config.yml
   become: false
   template:
-    src: templates/config.json.j2
-    dest: "{{ repo_dir }}{{ simple_discord_music_bot }}/config.json"
+    src: templates/melody.yml.j2
+    dest: "{{ repo_dir }}{{ melody }}/config.yml"
 
 - name: Install packages based on package.json.
   community.general.npm:
-    path: "{{ repo_dir }}{{ item }}"
-  loop: "{{ node_repos }}"
+    path: "{{ repo_dir }}{{ melody }}"
 
 - name: Create node systemd service files
   template:
     src: templates/node.service.j2
-    dest: "/etc/systemd/system/{{ item }}.service"
-  loop: "{{ node_repos }}"
+    dest: "/etc/systemd/system/{{ melody }}.service"
 
 - name: Enable and start node services
   ansible.builtin.service:
-    name: "{{ item }}"
+    name: "{{ melody }}"
     enabled: yes
     state: started
-  loop: "{{ node_repos }}"
